@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscando el</title>
+   
+</head>
+<body>
+     <h1>Buscando el Mapa del Tesoro </h1>
+     <img src="./mapademo.png" alt="" id="mapa">
+     <p id="distancia"></p>
+       
+    <script>
+        let mapa=document.getElementById('mapa')
+        let p=document.getElementById('distancia')
+        let numeroAzar=(valor)=>Math.floor((Math.random()*valor))
+        let  ancho=400
+        let  alto=400
+        let  tesoro={
+            x:numeroAzar(ancho),
+            y:numeroAzar(alto),
+
+        }
+            let click=0
+            let traerDistancia=(event,tesoro)=>{
+            let diferenciaX= event.offsetX-tesoro.x
+            let diferenciaY= event.offsetY-tesoro.y
+            return Math.sqrt((diferenciaX*diferenciaX)+(diferenciaY*diferenciaY))  
+        }
+        let traerAyuda=distancia=>{
+            if(distancia<15) {
+                return 'Quemado'
+            } 
+            else if(distancia<20) {
+                return 'Muy Caliente'
+            
+            }else if(distancia<40) {
+                return 'Caliente'
+          
+            }else if(distancia<80) {
+                return 'Tibio'
+            
+            }else if(distancia<160) {
+                return 'frio'
+            }
+
+        }
+        mapa.addEventListener('click',()=>{
+             click++
+             let distancia=traerDistancia(event,tesoro)
+             let ayuda=traerAyuda(distancia)
+             p.innerHTML=ayuda
+             if (distancia<15){
+                 alert('Encontraste el tesoro en'+click+'click')
+             }
+
+        })
+     
+        </script>
+</body>
+</html>
+
+
